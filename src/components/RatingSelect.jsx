@@ -2,16 +2,16 @@ import {useState, useContext, useEffect} from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 
 function RatingSelect({select}) {
-    const [selected, setSelected] = useState(10)
+    const [selected, setSelected] = useState(1)//useState(10)
     const {FeedbackEdit} = useContext(FeedbackContext)
 
     useEffect(() => {
-      setSelected(FeedbackEdit.item.rating)
+      FeedbackEdit.item.rating !== undefined && setSelected(FeedbackEdit.item.rating)// initial value of rating fixed as 1 we can deside any like 1o
     }, [FeedbackEdit])
     
     const handleChange = (e) => {
         setSelected(+e.currentTarget.value)
-        select(+e.currentTarget.value)
+        select(parseInt(e.currentTarget.value))// convert string to int (+ it will do the same operation)
     }
     return (
         <ul className='rating'>
